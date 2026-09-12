@@ -1,32 +1,29 @@
-// Playback policy: R-rated and age-restricted movie entries are excluded from this channel rotation.
-// HBO's modern rotation. Sources are current full-length YouTube Movies or
-// established distributor uploads that reported playable embedding when added.
-// Availability is rechecked in the player and failed sources are replaced.
+// HBO resilient catalog.
+// YouTube Movies/DRM listings are intentionally forbidden because they cannot
+// be relied upon in third-party embeds. Only ordinary full-length distributor
+// uploads with family-safe programming are eligible.
 window.HERMIT_CATALOG = [
-  { id:"HBO-001", title:"Serenity", year:2005, collection:"Space Epic", runtimeSeconds:7140, videoId:"WPXS9UtDmyQ", source:"YouTube Movies", networkChannel:"HBO", cleared:true },
-  { id:"HBO-002", title:"Mean Girls", year:2004, collection:"Modern Comedy Classic", runtimeSeconds:5820, videoId:"HPkDFc8hq5c", source:"YouTube Movies", networkChannel:"HBO", cleared:true },
-  { id:"HBO-003", title:"Honest Thief", year:2020, collection:"Prime-Time Action", runtimeSeconds:5940, videoId:"BqluXcZ9RyU", source:"YouTube Movies", networkChannel:"HBO", cleared:true },
-  { id:"HBO-004", title:"World Trade Center", year:2006, collection:"Prestige Drama", runtimeSeconds:7740, videoId:"KVk4ATEGb8Q", source:"YouTube Movies", networkChannel:"HBO", cleared:true },
-  { id:"HBO-005", title:"Skyline", year:2010, collection:"Science-Fiction Event", runtimeSeconds:5640, videoId:"DXf-NpZuCZ8", source:"YouTube Movies", networkChannel:"HBO", cleared:true },
-  { id:"HBO-008", title:"Beyond a Reasonable Doubt", year:2009, collection:"Courtroom Thriller", runtimeSeconds:6360, videoId:"L9AQELWJkFA", source:"YouTube Movies", networkChannel:"HBO", cleared:true },
-  { id:"HBO-010", title:"Mad Families", year:2017, collection:"Weekend Comedy", runtimeSeconds:5400, videoId:"8jyuUeCiWEk", source:"YouTube Movies", networkChannel:"HBO", cleared:true },
-  { id:"HBO-013", title:"The Presence", year:2010, collection:"Supernatural Sunday", runtimeSeconds:6097, videoId:"PsuWXuhy2VU", source:"Movie Central", networkChannel:"HBO", cleared:true },
+  { id:"HBO-SAFE-001", title:"Daddy Daughter Trip", year:2025, collection:"Family Comedy Premiere", runtimeSeconds:5795, videoId:"fIhM9MiEN50", source:"Movie Central", networkChannel:"HBO", contentClass:"Family", cleared:true },
+  { id:"HBO-SAFE-002", title:"Mayberry Man", year:2022, collection:"Small-Town Comedy", runtimeSeconds:5927, videoId:"a_AwfI9TPY8", source:"EncourageTV", networkChannel:"HBO", contentClass:"Family", cleared:true },
+  { id:"HBO-SAFE-003", title:"Accidental Family", year:2021, collection:"Romantic Comedy", runtimeSeconds:5672, videoId:"XH63ZMpgsAk", source:"Movie Central", networkChannel:"HBO", contentClass:"Family", cleared:true },
+  { id:"HBO-SAFE-004", title:"Pretty Outrageous", year:2017, collection:"Teen Comedy", runtimeSeconds:4542, videoId:"wbzh-m3cCmc", source:"Family Central", networkChannel:"HBO", contentClass:"Family", cleared:true },
+  { id:"HBO-SAFE-005", title:"Opposite Day", year:2009, collection:"Family Movie Night", runtimeSeconds:4856, videoId:"M18tKPAGlJ4", source:"Girls Night In Movies", networkChannel:"HBO", contentClass:"Family", cleared:true },
+  { id:"HBO-SAFE-006", title:"Stinky Summer", year:2025, collection:"Summer Adventure", runtimeSeconds:5415, videoId:"Gxa3gWpVPes", source:"Family Central", networkChannel:"HBO", contentClass:"Family", cleared:true },
+  { id:"HBO-SAFE-007", title:"Cleaver Family Reunion", year:2013, collection:"Family Reunion Comedy", runtimeSeconds:5445, videoId:"r7urqvC_avI", source:"Movie Central", networkChannel:"HBO", contentClass:"Family", cleared:true }
 ].map(movie => ({ ...movie, posterUrl:"" }));
 
 window.INFINITY_CHANNEL = {
   id:"HBO",
-  era:"2000-2026",
-  schedulePolicy:"No title or YouTube video ID may air on another Infinity channel on the same station date."
+  sourcePolicy:"No YouTube Movies DRM IDs, R-rated movies, age-restricted videos, trailers, promos or short clips.",
+  schedulePolicy:"Only ordinary full-length distributor uploads may enter the live rotation."
 };
 
-// Add sponsor video IDs here. Blank IDs display synchronized station cards.
 window.HERMIT_COMMERCIALS = [
   { id:"AD-001", title:"HBO intermission", durationSeconds:60, videoId:"", cleared:true },
   { id:"AD-002", title:"Tonight on HBO", durationSeconds:60, videoId:"", cleared:true },
   { id:"AD-003", title:"Now showing", durationSeconds:60, videoId:"", cleared:true }
 ];
 
-// Shared Infinity channel registry keeps every active channel hamburger in sync.
 (function syncInfinityChannels(){
   if (document.querySelector('script[data-infinity-channels]')) return;
   const script = document.createElement('script');
