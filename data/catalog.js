@@ -23,11 +23,3 @@ window.HERMIT_COMMERCIALS = [
   { id:"AD-002", title:"Tonight on HBO", durationSeconds:60, videoId:"", cleared:true },
   { id:"AD-003", title:"Now showing", durationSeconds:60, videoId:"", cleared:true }
 ];
-
-(function syncInfinityChannels(){
-  if (document.querySelector('script[data-infinity-channels]')) return;
-  const script = document.createElement('script');
-  script.src = 'https://www-infinity4.github.io/TNT/channels.js';
-  script.dataset.infinityChannels = '1';
-  document.head.appendChild(script);
-})();
