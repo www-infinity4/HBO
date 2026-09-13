@@ -1,4 +1,4 @@
-// HBO seven-day family rotation: 84 unique, full-length ordinary YouTube uploads.
+// Seven-day family rotation: 84 unique, full-length ordinary YouTube uploads.
 // Each source labels the upload as family, kids, faith, holiday, or animation programming.
 (function () {
   "use strict";
