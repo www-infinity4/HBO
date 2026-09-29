@@ -125,6 +125,8 @@
     const programChanged = nextKey !== remoteProgramKey;
     remoteNow = x;
     remoteProgramKey = nextKey;
+    const fallbackGuide = document.querySelector(".guide");
+    if (fallbackGuide) fallbackGuide.hidden = true;
     if (programChanged) {
       loadedKey = "";
       if (entered && playerReady) loadRemoteProgram();
