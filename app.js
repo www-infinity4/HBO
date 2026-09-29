@@ -110,7 +110,6 @@
 
   let remoteNow = null;
   let remoteProgramKey = "";
-  let lastRemoteSyncAt = 0;
 
   function getRemoteProgramKey(x) {
     const p = x && x.now;
@@ -128,7 +127,6 @@
     remoteProgramKey = nextKey;
     if (programChanged) {
       loadedKey = "";
-      lastRemoteSyncAt = 0;
       if (entered && playerReady) loadRemoteProgram();
     }
   });
@@ -141,15 +139,11 @@
     const key = remoteProgramKey || getRemoteProgramKey(remoteNow);
     els.stationCard.hidden = true;
     els.title.textContent = p.title;
+    document.body.style.setProperty("--program-art", `url("https://i.ytimg.com/vi/${vid}/maxresdefault.jpg")`);
     if (loadedKey !== key) {
       loadedKey = key;
       loadedMovieVideoId = vid;
       player.loadVideoById({videoId:vid,startSeconds:sec});
-      lastRemoteSyncAt = Date.now();
-    } else if (mode === "live" && player.getPlayerState() === YT.PlayerState.PLAYING && Date.now() - lastRemoteSyncAt > 30000) {
-      const drift = sec - player.getCurrentTime();
-      if (Math.abs(drift) > 12) player.seekTo(sec, true);
-      lastRemoteSyncAt = Date.now();
     }
     return true;
   }
