@@ -186,8 +186,11 @@
     const liveState = engine.resolve(Date.now(), engine.createDaySchedule(Date.now(), catalog), commercials);
     els.clock.textContent = `${formatStationTime(Date.now())} local`;
     els.mode.textContent = mode === "live" ? (state.segment.kind === "commercial" ? "LIVE · COMMERCIAL BREAK" : "LIVE CHANNEL") : "TIME SHIFTED";
-    els.title.textContent = state.block.movie.title;
-    setProgramArt(state.block.movie);
+    // While live, the Cloudflare program is authoritative. Do not let the
+    // built-in fallback schedule repaint the title between reader updates.
+    const remoteProgram = mode === "live" && remoteNow && remoteNow.now;
+    els.title.textContent = remoteProgram ? remoteProgram.title : state.block.movie.title;
+    if (!remoteProgram) setProgramArt(state.block.movie);
     els.programTime.textContent = `${formatStationTime(state.block.startsAtMs)}–${formatStationTime(state.block.endsAtMs)}`;
     els.position.textContent = mode === "live" ? "Synced with every live viewer" : `${formatDuration(state.blockElapsed)} from start`;
     els.remaining.textContent = `${formatDuration(state.blockRemaining)} remaining in slot`;
